@@ -13,33 +13,9 @@ Um portal moderno e responsivo com:
 
 ---
 
-## 🚀 Como instalar em seus domínios
+## 🚀domínio
 
-### **Opção 1: ia.pro.br/conferencia**
-1. Acesse seu painel de controle WordPress
-2. Vá para **Arquivos** ou **File Manager**
-3. Navegue até a raiz do site (pasta `public_html`)
-4. Crie uma pasta chamada `conferencia`
-5. Faça upload do arquivo `conferencias-portal.html` com o nome `index.html`
-6. Acesse: `https://ia.pro.br/conferencia`
-
-### **Opção 2: conf.ia.pro.br (Subdomínio)**
-1. Crie um subdomínio `conf` apontando para uma pasta do seu servidor
-2. Coloque o arquivo `conferencias-portal.html` como `index.html` nessa pasta
-3. Acesse: `https://conf.ia.pro.br`
-
-### **Opção 3: conferencia.ia.pro.br (Subdomínio)**
-1. Crie um subdomínio `conferencia` apontando para uma pasta do seu servidor
-2. Coloque o arquivo `conferencias-portal.html` como `index.html` nessa pasta
-3. Acesse: `https://conferencia.ia.pro.br`
-
-### **Opção 4: No WordPress como página customizada**
-1. No WordPress, instale o plugin **"Insert HTML Code Snippet"** ou **"Code Snippets"**
-2. Crie uma página chamada "Conferências"
-3. Copie todo o código HTML e cole no editor
-4. Publique e acesse
-
----
+### **conf.ia.pro.br**
 
 ## ✨ Recursos principais
 
@@ -106,15 +82,6 @@ Procure por `const conferencias = [` e adicione mais linhas:
 
 ---
 
-## 🔗 Links no rodapé
-
-- **Maiquel Gomes**: https://maiquelgomes.com.br
-- **IA PRO**: https://ia.pro.br
-- **GitHub**: https://github.com
-
-Todos são clicáveis e abrem em nova aba.
-
----
 
 ## 📱 Responsividade
 
@@ -135,14 +102,7 @@ Testado em:
 
 ---
 
-## 💡 Dicas
-
-1. **Adicione o portal ao seu menu do WordPress** para fácil acesso
-2. **Divulgue em redes sociais** - o design é muito atrativo
-3. **Mantenha a base de dados atualizada** - quanto mais conferências, melhor
-4. **Compartilhe o link com colegas** - é uma ferramenta valiosa para pesquisadores
-
----
+--
 
 ## 🆘 Dúvidas frequentes
 
