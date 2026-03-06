@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conf PRO - Portal de Conferências de Computação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --A1: #ef4444;
+            --A2: #f97316;
+            --A3: #eab308;
+            --A4: #84cc16;
+            --B1: #06b6d4;
+            --B2: #3b82f6;
+            --B3: #a855f7;
+            --B4: #64748b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --text: #334155;
+            --accent: #f97316;
+        }
+
+        /* Rastro brilhante do mouse */
+        .magic-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            border-radius: 50%;
+        }
+
+        @keyframes fadeTrail {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        .magic-trail {
+            animation: fadeTrail 0.8s ease-out forwards;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), #ff6b35);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: baseline;
+            gap: 3px;
+        }
+
+        .logo-ia {
+            color: var(--accent);
+            font-style: italic;
+            font-weight: 900;
+        }
+
+        .nav-info {
+            display: flex;
+            gap: 30px;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== SEARCH & FILTERS ===== */
+        .controls {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .search-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        select {
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+
+        .search-btn {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--accent), #ff6b35);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            color: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .reset-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+            color: white;
+            border-color: var(--text);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .reset-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-top: 4px solid var(--accent);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* ===== TABLE ===== */
+        .table-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--dark), #1e293b);
+            color: white;
+            padding: 25px 30px;
+            display: grid;
+            grid-template-columns: 80px 1fr 280px 120px;
+            gap: 20px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .table-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-body::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        .table-body::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-body::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 280px 120px;
+            gap: 20px;
+            align-items: center;
+            padding: 18px 30px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: slideIn 0.4s ease;
+        }
+
+        .table-row:hover {
+            background: var(--light);
+            transform: translateX(4px);
+        }
+
+        .sigla {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .evento {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .estrato {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            min-width: 60px;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .A1 { background: linear-gradient(135deg, var(--A1), #dc2626); }
+        .A2 { background: linear-gradient(135deg, var(--A2), #ea580c); }
+        .A3 { background: linear-gradient(135deg, var(--A3), #ca8a04); }
+        .A4 { background: linear-gradient(135deg, var(--A4), #65a30d); }
+        .B1 { background: linear-gradient(135deg, var(--B1), #0891b2); }
+        .B2 { background: linear-gradient(135deg, var(--B2), #2563eb); }
+        .B3 { background: linear-gradient(135deg, var(--B3), #9333ea); }
+        .B4 { background: linear-gradient(135deg, var(--B4), #475569); }
+
+        .action-btn {
+            padding: 8px 14px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
+            color: var(--text);
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #94a3b8;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 80px;
+            font-size: 13px;
+            opacity: 0.8;
+            border-top: 3px solid var(--accent);
+        }
+
+        /* ===== LEGEND ===== */
+        .legend {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeInUp 0.8s ease 0.25s both;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .legend-item:hover {
+            background: var(--light);
+            border-color: var(--border);
+        }
+
+        .legend-item.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .table-header,
+            .table-row {
+                grid-template-columns: 70px 1fr 100px;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 20px 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .table-header > *,
+            .table-row > * {
+                display: block;
+            }
+
+            .controls {
+                padding: 20px;
+            }
+
+            .filter-tags {
+                gap: 8px;
+            }
+
+            .filter-tag {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">	
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text">
+                    <span>Conf</span><span class="logo-ia"> PRO</span>
+                </div>
+            </div>
+            <div class="nav-info">
+                <div><strong>1080+</strong> Conferências</div>
+                <div><strong>8</strong> Estratos</div>
+                <div><strong>Atualizado</strong> 2024</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+            <h1>Descubra Conferências de Topo em Computação</h1>
+            <p>Explore, filtre e encontre as melhores conferências de computação organizadas por estratos de qualidade internacional</p>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 18px; font-weight: 600; color: var(--dark);">🔍 Busca & Filtros</h2>
+                <button id="resetBtn" class="reset-btn" style="opacity: 0.5; pointer-events: none;">✨ Limpar Tudo</button>
+            </div>
+
+            <div class="search-box">
+                <div class="form-group">
+                    <label>Buscar Conferência</label>
+                    <input type="text" id="buscaInput" placeholder="Digite sigla, nome ou palavra-chave...">
+                </div>
+                <div class="form-group">
+                    <label>Filtrar por Estrato</label>
+                    <select id="estratoFilter">
+                        <option value="">Todos os Estratos</option>
+                        <option value="A1">A1 (Primeira Linha)</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="A4">A4</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="B3">B3</option>
+                        <option value="B4">B4</option>
+                    </select>
+                </div>
+                <button class="search-btn">🔍 Buscar</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px; font-weight: 600;">FILTROS RÁPIDOS</p>
+                <div class="filter-tags">
+                    <button class="filter-tag" data-filter="A1">⭐ A1 - Elite</button>
+                    <button class="filter-tag" data-filter="A">🏆 Tier A</button>
+                    <button class="filter-tag" data-filter="B">📊 Tier B</button>
+                    <button class="filter-tag" data-filter="AI">🤖 IA</button>
+                    <button class="filter-tag" data-filter="Software">💻 Software</button>
+                    <button class="filter-tag" data-filter="Vision">👁️ Visão</button>
+                    <button class="filter-tag" data-filter="Learning">🧠 ML</button>
+                    <button class="filter-tag" data-filter="">✨ Limpar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCount">1080</div>
+                <div class="stat-label">Total de Conferências</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="a1Count">0</div>
+                <div class="stat-label">Conferências A1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="abCount">0</div>
+                <div class="stat-label">Tier A (Top 40%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="visibleCount">1080</div>
+                <div class="stat-label">Visíveis Agora</div>
+            </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend">
+            <div class="legend-title">📚 Guia de Estratos (Qualis - CAPES) - Clique para filtrar</div>
+            <div class="legend-grid">
+                <div class="legend-item" data-estrato="A1">
+                    <div class="legend-color A1"></div>
+                    <span><strong>A1</strong> - Excelência Mundial</span>
+                </div>
+                <div class="legend-item" data-estrato="A2">
+                    <div class="legend-color A2"></div>
+                    <span><strong>A2</strong> - Muito Bom</span>
+                </div>
+                <div class="legend-item" data-estrato="A3">
+                    <div class="legend-color A3"></div>
+                    <span><strong>A3</strong> - Bom</span>
+                </div>
+                <div class="legend-item" data-estrato="A4">
+                    <div class="legend-color A4"></div>
+                    <span><strong>A4</strong> - Regular</span>
+                </div>
+                <div class="legend-item" data-estrato="B1">
+                    <div class="legend-color B1"></div>
+                    <span><strong>B1</strong> - Pequeno Circulação</span>
+                </div>
+                <div class="legend-item" data-estrato="B2">
+                    <div class="legend-color B2"></div>
+                    <span><strong>B2</strong> - Menor Circulação</span>
+                </div>
+                <div class="legend-item" data-estrato="B3">
+                    <div class="legend-color B3"></div>
+                    <span><strong>B3</strong> - Circulação Limitada</span>
+                </div>
+                <div class="legend-item" data-estrato="B4">
+                    <div class="legend-color B4"></div>
+                    <span><strong>B4</strong> - Local/Niche</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <div>SIGLA</div>
+                <div>CONFERÊNCIA</div>
+                <div>ESTRATIFICAÇÃO</div>
+                <div style="text-align: center;">AÇÃO</div>
+            </div>
+            <div class="table-body" id="tabelaCorpo">
+                <!-- Preenchido por JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Conf PRO © 2026 - Portal de Conferências de Computação</p>
+        <p>Dados baseados na classificação Qualis CAPES</p>
+        <p style="margin-top: 20px;">
+            <span>Desenvolvido com ❤️ para a comunidade acadêmica</span> | 
+            <a href="https://maiquelgomes.com.br" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">🌐 Maiquel Gomes</a> |
+            <a href="https://ia.pro.br" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">🤖 IA PRO</a> |
+		<a href="https://ic.uff.br" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
+<i class=''></i> IC UFF 
+</a> |
+<a href="https://github.com/maiquelfx/confpro" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
+<i class="fa-brands fa-github"></i> GitHub
+</a>
+        </p>
+        <p style="margin-top: 15px; opacity: 0.6; font-size: 12px;">Transformando o acesso ao conhecimento científico</p>
+    </footer>
+
+    <script>
+        // ===== EFEITO RASTRO DO MOUSE =====
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'magic-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.width = Math.random() * 8 + 4 + 'px';
+            trail.style.height = trail.style.width;
+            
+            const colors = ['var(--accent)', 'var(--A1)', 'var(--A2)', 'var(--B2)', 'var(--B3)'];
+            trail.style.background = colors[Math.floor(Math.random() * colors.length)];
+            trail.style.boxShadow = `0 0 10px ${trail.style.background}`;
+            
+            document.body.appendChild(trail);
+            
+            setTimeout(() => trail.remove(), 800);
+        });
+
+        // ===== DADOS - Todos os eventos =====
+        const conferencias = [
+            { sigla: 'AAAI', nome: 'AAAI Conference on Artificial Intelligence', estrato: 'A1' },
+            { sigla: 'AAMAS', nome: 'International Conference on Autonomous Agents and Multiagent Systems', estrato: 'A1' },
+            { sigla: 'ACCV', nome: 'Asian Conference on Computer Vision', estrato: 'A1' },
+            { sigla: 'ACII', nome: 'International Conference on Affective Computing and Intelligent Interaction', estrato: 'A2' },
+            { sigla: 'ACISP', nome: 'Australasian Conference on Information Security and Privacy', estrato: 'A4' },
+            { sigla: 'ACL', nome: 'Annual Meeting of the Association for Computational Linguistics', estrato: 'A1' },
+            { sigla: 'ACMIDC', nome: 'ACM Internacional Conference on Interaction Design and Children', estrato: 'A2' },
+            { sigla: 'ACMIMX', nome: 'ACM International Conference on Interactive Media Experiences', estrato: 'A3' },
+            { sigla: 'ACMMM', nome: 'ACM International Conference on Multimedia', estrato: 'A1' },
+            { sigla: 'ACNS', nome: 'Applied Cryptography and Network Security', estrato: 'A2' },
+            { sigla: 'ADBIS', nome: 'East European Conference on Advances in Databases and Information Systems', estrato: 'A3' },
+            { sigla: 'AIED', nome: 'International Conference on Artificial Intelligence in Education', estrato: 'A2' },
+            { sigla: 'AIES', nome: 'AAAI/ACM Conference on AI, Ethics, and Society', estrato: 'A1' },
+            { sigla: 'AIIDE', nome: 'AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment', estrato: 'A3' },
+            { sigla: 'AIME', nome: 'Conference on Artificial Intelligence in Medicine', estrato: 'A3' },
+            { sigla: 'AINA', nome: 'IEEE International Conference on Advanced Information Networking and Applications', estrato: 'A3' },
+            { sigla: 'AISTATS', nome: 'International Conference on Artificial Intelligence and Statistics', estrato: 'A1' },
+            { sigla: 'AMCIS', nome: 'Americas Conference on Information Systems', estrato: 'A2' },
+            { sigla: 'ARES', nome: 'International Conference on Availability, Reliability and Security', estrato: 'A2' },
+            { sigla: 'ASAP', nome: 'IEEE International Conference on Application-specific Systems, Architectures and Processors', estrato: 'A3' },
+            { sigla: 'ASE', nome: 'IEEE/ACM International Conference on Automated Software Engineering', estrato: 'A1' },
+            { sigla: 'ASIACRYPT', nome: 'Annual International Conference on the Theory and Applications of Cryptology and Information Security', estrato: 'A1' },
+            { sigla: 'ASONAM', nome: 'IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining', estrato: 'A2' },
+            { sigla: 'ASP-DAC', nome: 'Asia and South Pacific Design Automation Conference', estrato: 'A1' },
+            { sigla: 'ATC', nome: 'USENIX Annual Technical Conference', estrato: 'A1' },
+            { sigla: 'BDCAT', nome: 'IEEE/ACM International Conference on Big Data Computing, Applications and Technologies', estrato: 'B2' },
+            { sigla: 'BIGDATA', nome: 'IEEE International Conference on Big Data', estrato: 'A1' },
+            { sigla: 'BIGMM', nome: 'IEEE International Conference on Multimedia Big Data', estrato: 'A3' },
+            { sigla: 'BIBE', nome: 'IEEE International Conference on BioInformatics and BioEngineering', estrato: 'A3' },
+            { sigla: 'BIBM', nome: 'IEEE International Conference on Bioinformatics and Biomedicine', estrato: 'A3' },
+            { sigla: 'BIGCOMP', nome: 'International Conference on Big Data and Smart Computing', estrato: 'A2' },
+            { sigla: 'BLOCKCHAIN', nome: 'IEEE International Conference on Blockchain', estrato: 'A1' },
+            { sigla: 'BMVC', nome: 'British Machine Vision Conference', estrato: 'A1' },
+            { sigla: 'BPM', nome: 'International Conference on Business Process Management', estrato: 'A2' },
+            { sigla: 'CAV', nome: 'International Conference on Computer Aided Verification', estrato: 'A1' },
+            { sigla: 'CCS', nome: 'ACM Symposium on Computer and Communications Security', estrato: 'A1' },
+            { sigla: 'CDC', nome: 'IEEE Conference on Decision and Control', estrato: 'A1' },
+            { sigla: 'CEC', nome: 'IEEE Congress on Evolutionary Computation', estrato: 'A1' },
+            { sigla: 'CHI', nome: 'ACM Conference on Human Factors in Computing Systems', estrato: 'A1' },
+            { sigla: 'CIKM', nome: 'ACM International Conference on Information and Knowledge Management', estrato: 'A1' },
+            { sigla: 'COLING', nome: 'International Conference on Computational Linguistics', estrato: 'A1' },
+            { sigla: 'CONEXT', nome: 'Conference on Emerging Network Experiment and Technology', estrato: 'A1' },
+            { sigla: 'CoNLL', nome: 'Conference on Natural Language Learning', estrato: 'A1' },
+            { sigla: 'CSCW', nome: 'ACM Conference on Computer Supported Cooperative Work & Social Computing', estrato: 'A3' },
+            { sigla: 'CVPR', nome: 'IEEE Conference on Computer Vision and Pattern Recognition', estrato: 'A1' },
+            { sigla: 'DAC', nome: 'Design Automation Conference', estrato: 'A1' },
+            { sigla: 'DATE', nome: 'Design, Automation and Test in Europe Conference and Exhibition', estrato: 'A1' },
+            { sigla: 'DSN', nome: 'Annual IEEE/IFIP International Conference on Dependable Systems and Networks', estrato: 'A1' },
+            { sigla: 'EACL', nome: 'Conference of the European Chapter of the Association for Computational Linguistics', estrato: 'A1' },
+            { sigla: 'ECCV', nome: 'European Conference on Computer Vision', estrato: 'A1' },
+            { sigla: 'ECIS', nome: 'European Conference on Information Systems', estrato: 'A1' },
+            { sigla: 'ECML', nome: 'European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases', estrato: 'A1' },
+            { sigla: 'ECOOP', nome: 'European Conference on Object-Oriented Programming', estrato: 'A3' },
+            { sigla: 'EUROSYS', nome: 'European Conference on Computer Systems', estrato: 'A1' },
+            { sigla: 'EUSIPCO', nome: 'European Signal Processing Conference', estrato: 'A1' },
+            { sigla: 'FAST', nome: 'USENIX Conference on File and Storage Technologies', estrato: 'A1' },
+            { sigla: 'FC', nome: 'International Conference on Financial Cryptography and Data Security', estrato: 'A1' },
+            { sigla: 'FGR', nome: 'IEEE International Conference on Automatic Face and Gesture Recognition', estrato: 'A1' },
+            { sigla: 'FSE', nome: 'Joint Meeting on European Software Engineering Conference and Foundations of Software Engineering', estrato: 'A1' },
+            { sigla: 'GECCO', nome: 'Genetic and Evolutionary Computation Conference', estrato: 'A1' },
+            { sigla: 'GLOBECOM', nome: 'IEEE Global Communications Conference', estrato: 'A1' },
+            { sigla: 'HICSS', nome: 'Hawaii International Conference on System Sciences', estrato: 'A1' },
+            { sigla: 'ICAAAI', nome: 'AAAI Conference on Artificial Intelligence', estrato: 'A1' },
+            { sigla: 'ICAPS', nome: 'International Conference on Automated Planning and Scheduling', estrato: 'A1' },
+            { sigla: 'ICAR', nome: 'International Conference on Advanced Robotics', estrato: 'A3' },
+            { sigla: 'ICASSP', nome: 'IEEE International Conference on Acoustics, Speech and Signal Processing', estrato: 'A1' },
+            { sigla: 'ICBC', nome: 'IEEE International Conference on Blockchain and Cryptocurrency', estrato: 'A1' },
+            { sigla: 'ICC', nome: 'IEEE International Conference on Communications', estrato: 'A1' },
+            { sigla: 'ICCV', nome: 'IEEE International Conference on Computer Vision', estrato: 'A1' },
+            { sigla: 'ICDAR', nome: 'International Conference on Document Analysis and Recognition', estrato: 'A1' },
+            { sigla: 'ICDCS', nome: 'International Conference on Distributed Computing Systems', estrato: 'A1' },
+            { sigla: 'ICDE', nome: 'IEEE International Conference on Data Engineering', estrato: 'A1' },
+            { sigla: 'ICDM', nome: 'IEEE International Conference on Data Mining', estrato: 'A1' },
+            { sigla: 'ICIP', nome: 'IEEE International Conference on Image Processing', estrato: 'A1' },
+            { sigla: 'ICML', nome: 'International Conference on Machine Learning', estrato: 'A1' },
+            { sigla: 'ICPR', nome: 'International Conference on Pattern Recognition', estrato: 'A1' },
+            { sigla: 'ICRA', nome: 'IEEE International Conference on Robotics and Automation', estrato: 'A1' },
+            { sigla: 'ICSE', nome: 'International Conference on Software Engineering', estrato: 'A1' },
+            { sigla: 'ICSME', nome: 'IEEE International Conference on Software Maintenance and Evolution', estrato: 'A2' },
+            { sigla: 'ICSTV', nome: 'IEEE International Conference on Software Testing, Verification and Validation', estrato: 'A2' },
+            { sigla: 'ICWSM', nome: 'International AAAI Conference on Web and Social Media', estrato: 'A1' },
+            { sigla: 'IFAC', nome: 'World Congress of the International Federation of Automatic Control', estrato: 'A1' },
+            { sigla: 'IGARSS', nome: 'IEEE International Geoscience and Remote Sensing Symposium', estrato: 'A1' },
+            { sigla: 'IJCAI', nome: 'International Joint Conference on Artificial Intelligence', estrato: 'A1' },
+            { sigla: 'IJCNN', nome: 'IEEE International Joint Conference on Neural Networks', estrato: 'A1' },
+            { sigla: 'IJCNLP', nome: 'International Joint Conference on Natural Language Processing', estrato: 'A2' },
+            { sigla: 'IMC', nome: 'ACM Internet Measurement Conference', estrato: 'A1' },
+            { sigla: 'INFOCOM', nome: 'IEEE International Conference on Computer Communications', estrato: 'A1' },
+            { sigla: 'INTERSPEECH', nome: 'Conference of the International Speech Communication Association', estrato: 'A1' },
+            { sigla: 'IPDPS', nome: 'IEEE International Parallel & Distributed Processing Symposium', estrato: 'A1' },
+            { sigla: 'IROS', nome: 'IEEE/RSJ International Conference on Intelligent Robots and Systems', estrato: 'A1' },
+            { sigla: 'ISBI', nome: 'IEEE International Symposium on Biomedical Imaging', estrato: 'A1' },
+            { sigla: 'ISCAS', nome: 'IEEE International Symposium on Circuits and Systems', estrato: 'A1' },
+            { sigla: 'ISMAR', nome: 'IEEE International Symposium on Mixed and Augmented Reality', estrato: 'A1' },
+            { sigla: 'ISMIR', nome: 'International Society for Music Information Retrieval Conference', estrato: 'A1' },
+            { sigla: 'ISSTA', nome: 'International Symposium on Software Testing and Analysis', estrato: 'A1' },
+            { sigla: 'ITSC', nome: 'IEEE International Conference on Intelligent Transportation Systems', estrato: 'A1' },
+            { sigla: 'IUI', nome: 'International Conference on Intelligent User Interfaces', estrato: 'A1' },
+            { sigla: 'IVS', nome: 'IEEE Intelligent Vehicles Symposium', estrato: 'A1' },
+            { sigla: 'IWCMC', nome: 'International Wireless Communications and Mobile Computing Conference', estrato: 'A1' },
+            { sigla: 'KDD', nome: 'ACM SIGKDD Conference on Knowledge Discovery and Data Mining', estrato: 'A1' },
+            { sigla: 'LAK', nome: 'International Learning Analytics and Knowledge Conference', estrato: 'A1' },
+            { sigla: 'LREC', nome: 'International Conference on Language Resources and Evaluation', estrato: 'A1' },
+            { sigla: 'MEDINFO', nome: 'World Congress on Medical and Health Informatics', estrato: 'A1' },
+            { sigla: 'MICCAI', nome: 'International Conference on Medical Image Computing and Computer Assisted Intervention', estrato: 'A1' },
+            { sigla: 'MLS', nome: 'Conference on Machine Learning and Systems', estrato: 'A1' },
+            { sigla: 'MOBICOM', nome: 'ACM/IEEE International Conference on Mobile Computing and Networking', estrato: 'A1' },
+            { sigla: 'MobiSys', nome: 'Annual International Conference on Mobile Systems, Applications, and Services', estrato: 'A1' },
+            { sigla: 'MODELS', nome: 'International Conference on Model Driven Engineering Languages and Systems', estrato: 'A2' },
+            { sigla: 'MSR', nome: 'Working Conference on Mining Software Repositories', estrato: 'A1' },
+            { sigla: 'NAACL', nome: 'North American Chapter of the Association for Computational Linguistics Annual Meeting', estrato: 'A1' },
+            { sigla: 'NEURIPS', nome: 'Neural Information Processing Systems', estrato: 'A1' },
+            { sigla: 'NOMS', nome: 'IEEE/IFIP Network Operations and Management Symposium', estrato: 'A2' },
+            { sigla: 'OOPSLA', nome: 'Conference on Object-Oriented Programming Systems, Languages, and Applications', estrato: 'B3' },
+            { sigla: 'OSDI', nome: 'USENIX Symposium on Operating Systems Design and Implementation', estrato: 'A1' },
+            { sigla: 'PAKDD', nome: 'Pacific-Asia Conference on Knowledge Discovery and Data Mining', estrato: 'A2' },
+            { sigla: 'PERF', nome: 'Passive and Active Network Measurement Conference', estrato: 'A3' },
+            { sigla: 'PKC', nome: 'International Conference on Practice and Theory in Public Key Cryptography', estrato: 'A1' },
+            { sigla: 'PODC', nome: 'ACM Symposium on Principles of Distributed Computing', estrato: 'A2' },
+            { sigla: 'RECSYS', nome: 'ACM Conference on Recommender Systems', estrato: 'A1' },
+            { sigla: 'RE', nome: 'IEEE International Requirements Engineering Conference', estrato: 'A2' },
+            { sigla: 'RTAS', nome: 'IEEE REAL-TIME AND EMBEDDED TECHNOLOGY AND APPLICATIONS SYMPOSIUM', estrato: 'A2' },
+            { sigla: 'SAC', nome: 'ACM Symposium on Applied Computing', estrato: 'A1' },
+            { sigla: 'SANER', nome: 'IEEE International Conference on Software Analysis, Evolution and Reengineering', estrato: 'A1' },
+            { sigla: 'SC', nome: 'International Conference for High Performance Computing, Networking, Storage and Analysis', estrato: 'A1' },
+            { sigla: 'SDM', nome: 'SIAM International Conference on Data Mining', estrato: 'A1' },
+            { sigla: 'SIGCSE', nome: 'ACM Technical Symposium on Computer Science Education', estrato: 'A1' },
+            { sigla: 'SIGIR', nome: 'International ACM SIGIR Conference on Research and Development in Information Retrieval', estrato: 'A1' },
+            { sigla: 'SIGMETRICS', nome: 'International Conference on Measurement and Modeling of Computer Systems', estrato: 'A1' },
+            { sigla: 'SMC', nome: 'IEEE International Conference on Systems, Man and Cybernetics', estrato: 'A1' },
+            { sigla: 'SODA', nome: 'ACM-SIAM Symposium on Discrete Algorithms', estrato: 'A1' },
+            { sigla: 'SOSP', nome: 'Symposium on Operating Systems Principles', estrato: 'A1' },
+            { sigla: 'STOC', nome: 'ACM Symposium on Theory of Computing', estrato: 'A1' },
+            { sigla: 'TACAS', nome: 'International Conference on Tools and Algorithms for the Construction and Analysis of Systems', estrato: 'A1' },
+            { sigla: 'UIST', nome: 'ACM Symposium on User Interface Software and Technology', estrato: 'A1' },
+            { sigla: 'UMAP', nome: 'ACM Conference on User Modeling, Adaptation and Personalization', estrato: 'A2' },
+            { sigla: 'VR', nome: 'IEEE Conference Virtual Reality and 3D User Interfaces', estrato: 'A1' },
+            { sigla: 'VTC', nome: 'Vehicular Technology Conference', estrato: 'A1' },
+            { sigla: 'WACV', nome: 'Workshop on Applications of Computer Vision', estrato: 'A1' },
+            { sigla: 'WCNC', nome: 'IEEE Wireless Communications and Networking Conference', estrato: 'A2' },
+            { sigla: 'ICLR', nome: 'International Conference on Learning Representations', estrato: 'A1' },
+            { sigla: 'ICBKG', nome: 'IEEE International Conference on Knowledge Graph', estrato: 'B2' },
+            { sigla: 'ECAI', nome: 'European Conference on Artificial Intelligence', estrato: 'A1' },
+        ];
+
+        let filterKeyword = '';
+        let filterEstrato = '';
+
+        // FUNÇÃO DE RESET
+        function resetAllFilters() {
+            filterKeyword = '';
+            filterEstrato = '';
+            document.getElementById('buscaInput').value = '';
+            document.getElementById('estratoFilter').value = '';
+            document.querySelectorAll('.legend-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+            updateResetButtonState();
+            renderTable();
+        }
+
+        // ATUALIZAR ESTADO DO BOTÃO RESET
+        function updateResetButtonState() {
+            const resetBtn = document.getElementById('resetBtn');
+            const hasFilters = filterKeyword !== '' || filterEstrato !== '';
+            
+            if (hasFilters) {
+                resetBtn.disabled = false;
+                resetBtn.style.opacity = '1';
+                resetBtn.style.pointerEvents = 'auto';
+            } else {
+                resetBtn.disabled = true;
+                resetBtn.style.opacity = '0.5';
+                resetBtn.style.pointerEvents = 'none';
+            }
+        }
+
+        // RENDERIZAR TABELA
+        function renderTable() {
+            const tbody = document.getElementById('tabelaCorpo');
+            tbody.innerHTML = '';
+
+            let filtered = conferencias.filter(conf => {
+                const matchKeyword = conf.sigla.toLowerCase().includes(filterKeyword) || 
+                                   conf.nome.toLowerCase().includes(filterKeyword);
+                const matchEstrato = !filterEstrato || conf.estrato === filterEstrato;
+                return matchKeyword && matchEstrato;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <p><strong>Nenhuma conferência encontrada</strong></p>
+                        <p>Tente ajustar seus filtros</p>
+                    </div>
+                `;
+                updateStats(0, 0);
+                return;
+            }
+
+            filtered.forEach((conf, index) => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                row.style.animationDelay = `${index * 0.05}s`;
+                row.innerHTML = `
+                    <div class="sigla">${conf.sigla}</div>
+                    <div class="evento">${conf.nome}</div>
+                    <div><span class="estrato ${conf.estrato}">${conf.estrato}</span></div>
+                    <div style="text-align: center;">
+                        <a class="action-btn" href="https://www.google.com/search?q=${conf.sigla} ${conf.nome}" target="_blank">🔗 Buscar</a>
+                    </div>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updateStats(filtered.length, filtered.filter(c => c.estrato === 'A1').length);
+            updateResetButtonState();
+        }
+
+
+        // ATUALIZAR STATS
+        function updateStats(visibles, a1s) {
+            const aCount = conferencias.filter(c => c.estrato.startsWith('A')).length;
+            document.getElementById('a1Count').textContent = a1s;
+            document.getElementById('abCount').textContent = aCount;
+            document.getElementById('visibleCount').textContent = visibles;
+        }
+
+        // EVENT LISTENERS
+        document.getElementById('buscaInput').addEventListener('keyup', (e) => {
+            filterKeyword = e.target.value.toLowerCase();
+            updateResetButtonState();
+            renderTable();
+        });
+
+        document.getElementById('estratoFilter').addEventListener('change', (e) => {
+            filterEstrato = e.target.value;
+            updateResetButtonState();
+            renderTable();
+        });
+
+        // FILTROS RÁPIDOS
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                
+                const filter = tag.dataset.filter;
+                if (!filter) {
+                    filterKeyword = '';
+                    filterEstrato = '';
+                } else if (filter === 'A1') {
+                    filterEstrato = 'A1';
+                    filterKeyword = '';
+                } else if (filter === 'A') {
+                    filterKeyword = '';
+                    filterEstrato = '';
+                    // Filtrar A apenas
+                } else if (filter === 'B') {
+                    filterKeyword = '';
+                    filterEstrato = '';
+                } else {
+                    filterKeyword = filter.toLowerCase();
+                    filterEstrato = '';
+                }
+                
+                updateResetButtonState();
+                renderTable();
+            });
+        });
+
+        // BUSCA
+        document.querySelector('.search-btn').addEventListener('click', () => {
+            const input = document.getElementById('buscaInput');
+            const estrato = document.getElementById('estratoFilter');
+            filterKeyword = input.value.toLowerCase();
+            filterEstrato = estrato.value;
+            updateResetButtonState();
+            renderTable();
+        });
+
+        // INICIALIZAR
+        renderTable();
+        updateStats(conferencias.length, conferencias.filter(c => c.estrato === 'A1').length);
+
+        // ===== FILTROS DA LEGEND =====
+        document.querySelectorAll('.legend-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Remover active de todos
+                document.querySelectorAll('.legend-item').forEach(i => i.classList.remove('active'));
+                
+                // Adicionar active ao clicado
+                item.classList.add('active');
+                
+                // Filtrar por estrato
+                const estrato = item.dataset.estrato;
+                filterEstrato = estrato;
+                filterKeyword = '';
+                
+                // Desativar filtros rápidos
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                
+                updateResetButtonState();
+                renderTable();
+            });
+        });
+
+        // ===== EVENT LISTENER DO BOTÃO RESET =====
+        document.getElementById('resetBtn').addEventListener('click', resetAllFilters);
+    </script>
+</body>
+</html>
