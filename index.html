@@ -44,6 +44,15 @@
             --accent: #f97316;
         }
 
+        /* Dark Mode */
+        :root.dark-mode {
+            --dark: #1a1a2e;
+            --darker: #0f0f1e;
+            --light: #16213e;
+            --border: #2d2d44;
+            --text: #e0e0e0;
+        }
+
         /* Rastro brilhante do mouse */
         .magic-trail {
             position: fixed;
@@ -76,6 +85,11 @@
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
 
         /* ===== HEADER ===== */
@@ -88,6 +102,11 @@
             z-index: 1000;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
             border-bottom: 3px solid var(--accent);
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
         }
 
         .header-content {
@@ -96,6 +115,12 @@
             padding: 30px 40px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
             align-items: center;
         }
 
@@ -141,6 +166,27 @@
             opacity: 0.8;
         }
 
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         /* ===== CONTAINER ===== */
         .container {
             max-width: 1400px;
@@ -164,6 +210,10 @@
             letter-spacing: -2px;
         }
 
+        body.dark-mode .hero h1 {
+            color: #e0e0e0;
+        }
+
         .hero p {
             font-size: 18px;
             color: #64748b;
@@ -171,6 +221,10 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        body.dark-mode .hero p {
+            color: #a0a0b0;
         }
 
         /* ===== SEARCH & FILTERS ===== */
@@ -181,6 +235,12 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 40px;
             animation: fadeInUp 0.8s ease 0.1s both;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .controls {
+            background: #1a1a2e;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .search-box {
@@ -214,6 +274,14 @@
             font-size: 14px;
             transition: all 0.3s ease;
             background: white;
+            color: var(--text);
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode select {
+            background: #16213e;
+            color: #e0e0e0;
+            border-color: #2d2d44;
         }
 
         input[type="text"]:focus,
@@ -257,12 +325,22 @@
             font-family: 'Sora', sans-serif;
         }
 
+        body.dark-mode .reset-btn {
+            background: linear-gradient(135deg, #2d2d44, #3a3a52);
+            color: #e0e0e0;
+            border-color: #3a3a52;
+        }
+
         .reset-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #cbd5e1, #94a3b8);
             color: white;
             border-color: var(--text);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .reset-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #3a3a52, #4a4a62);
         }
 
         .reset-btn:disabled {
@@ -288,6 +366,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            color: var(--text);
         }
 
         .filter-tag:hover,
@@ -313,6 +392,12 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             text-align: center;
             border-top: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .stat-card {
+            background: #1a1a2e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .stat-number {
@@ -320,6 +405,10 @@
             font-weight: 900;
             color: var(--dark);
             margin-bottom: 5px;
+        }
+
+        body.dark-mode .stat-number {
+            color: #e0e0e0;
         }
 
         .stat-label {
@@ -330,6 +419,10 @@
             font-weight: 600;
         }
 
+        body.dark-mode .stat-label {
+            color: #708090;
+        }
+
         /* ===== TABLE ===== */
         .table-wrapper {
             background: white;
@@ -337,6 +430,12 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             animation: fadeInUp 0.8s ease 0.3s both;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .table-wrapper {
+            background: #1a1a2e;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .table-header {
@@ -351,6 +450,11 @@
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode .table-header {
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
         }
 
         .table-body {
@@ -375,6 +479,18 @@
             background: #94a3b8;
         }
 
+        body.dark-mode .table-body::-webkit-scrollbar-track {
+            background: #16213e;
+        }
+
+        body.dark-mode .table-body::-webkit-scrollbar-thumb {
+            background: #3a3a52;
+        }
+
+        body.dark-mode .table-body::-webkit-scrollbar-thumb:hover {
+            background: #4a4a62;
+        }
+
         .table-row {
             display: grid;
             grid-template-columns: 80px 1fr 280px 120px;
@@ -396,6 +512,10 @@
             color: var(--dark);
             font-size: 14px;
             letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .sigla {
+            color: #e0e0e0;
         }
 
         .evento {
@@ -474,6 +594,11 @@
             font-size: 13px;
             opacity: 0.8;
             border-top: 3px solid var(--accent);
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode footer {
+            background: #0f0f1e;
         }
 
         /* ===== LEGEND ===== */
@@ -484,12 +609,22 @@
             margin-bottom: 40px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             animation: fadeInUp 0.8s ease 0.25s both;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .legend {
+            background: #1a1a2e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .legend-title {
             font-weight: 700;
             margin-bottom: 15px;
             color: var(--dark);
+        }
+
+        body.dark-mode .legend-title {
+            color: #e0e0e0;
         }
 
         .legend-grid {
@@ -508,6 +643,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            color: var(--text);
         }
 
         .legend-item:hover {
@@ -526,6 +662,64 @@
             height: 30px;
             border-radius: 6px;
             flex-shrink: 0;
+        }
+
+        /* ===== UP TO TOP BUTTON ===== */
+        #upToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #ff6b35);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.4s ease;
+        }
+
+        #upToTopBtn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+        }
+
+        #upToTopBtn.show {
+            display: flex;
+        }
+
+        /* ===== EXPORT BUTTONS ===== */
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .export-btn {
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
         }
 
         /* ===== ANIMATIONS ===== */
@@ -562,6 +756,17 @@
             }
         }
 
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .table-header,
@@ -575,6 +780,22 @@
 
             .hero h1 {
                 font-size: 36px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-info {
+                flex-direction: row;
+                gap: 15px;
+                font-size: 11px;
             }
         }
 
@@ -626,6 +847,18 @@
                 padding: 6px 12px;
                 font-size: 12px;
             }
+
+            #upToTopBtn {
+                bottom: 20px;
+                left: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">	
@@ -635,15 +868,20 @@
     <header>
         <div class="header-content">
             <a href="/" class="logo" style="text-decoration:none; color:inherit;">
-    <div class="logo-icon">⚛️</div>
-    <div class="logo-text">
-        <span>Conf</span><span class="logo-ia"> PRO</span>
-    </div>
-</a>
-            <div class="nav-info">
-                <div><strong>1080+</strong> Conferências</div>
-                <div><strong>8</strong> Estratos</div>
-                <div><strong>Atualizado</strong> 2026</div>
+                <div class="logo-icon">⚛️</div>
+                <div class="logo-text">
+                    <span>Conf</span><span class="logo-ia"> PRO</span>
+                </div>
+            </a>
+            <div class="header-actions">
+                <div class="nav-info">
+                    <div><strong>1080+</strong> Conferências</div>
+                    <div><strong>8</strong> Estratos</div>
+                    <div><strong>Atualizado</strong> 2026</div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Alternar Modo Escuro">
+                    🌙 Dark
+                </button>
             </div>
         </div>
     </header>
@@ -697,6 +935,12 @@
                     <button class="filter-tag" data-filter="Learning">🧠 ML</button>
                     <button class="filter-tag" data-filter="">✨ Limpar</button>
                 </div>
+            </div>
+
+            <!-- EXPORT BUTTONS -->
+            <div class="export-buttons">
+                <button class="export-btn" id="exportCSV">📥 Exportar CSV</button>
+                <button class="export-btn" id="exportJSON">📥 Exportar JSON</button>
             </div>
         </div>
 
@@ -773,6 +1017,9 @@
         </div>
     </div>
 
+    <!-- UP TO TOP BUTTON -->
+    <button id="upToTopBtn" title="Voltar ao Topo">↑</button>
+
     <!-- FOOTER -->
     <footer>
         <p>Conf PRO © 2026 - Portal de Conferências de Computação</p>
@@ -781,18 +1028,58 @@
             <span>Desenvolvido com ❤️ para a comunidade acadêmica</span> | 
             <a href="https://maiquelgomes.com.br" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">🌐 Maiquel Gomes</a> |
             <a href="https://ia.pro.br" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">🤖 IA PRO</a> |
-		<a href="https://www.pgc.uff.br/" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
-<i class=''></i> PGC UFF 
-</a> |
-<a href="https://github.com/maiquelfx/confpro" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
-<i class="fa-brands fa-github"></i> GitHub
-</a>
+            <a href="https://www.pgc.uff.br/" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
+                <i class=''></i> PGC UFF 
+            </a> |
+            <a href="https://github.com/maiquelfx/confpro" target="_blank" style="color: var(--accent); text-decoration: none; margin: 0 5px;">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
         </p>
-        <p style="margin-top: 15px; opacity: 0.6; font-size: 12px;">Transformando o acesso ao conhecimento científico</p> <a href="https://ia.pro.br/" target="_blank">
-<img src="https://hitwebcounter.com/counter/counter.php?page=21481217&style=0009&nbdigits=5&type=page&initCount=0" title="Free Tools" Alt="Free Tools"   border="0" /></a>  
+        <p style="margin-top: 15px; opacity: 0.6; font-size: 12px;">Transformando o acesso ao conhecimento científico</p> 
+        <a href="https://ia.pro.br/" target="_blank">
+            <img src="https://hitwebcounter.com/counter/counter.php?page=21481217&style=0009&nbdigits=5&type=page&initCount=0" title="Free Tools" Alt="Free Tools" border="0" />
+        </a>  
     </footer>
 
     <script>
+        // ===== DARK MODE TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        // Carregar tema salvo
+        const savedTheme = localStorage.getItem('confpro-theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.classList.add('dark-mode');
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Light';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.classList.toggle('dark-mode');
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('confpro-theme', isDark ? 'dark' : 'light');
+            themeToggle.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+        });
+
+        // ===== UP TO TOP BUTTON =====
+        const upToTopBtn = document.getElementById('upToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                upToTopBtn.classList.add('show');
+            } else {
+                upToTopBtn.classList.remove('show');
+            }
+        });
+
+        upToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // ===== EFEITO RASTRO DO MOUSE =====
         document.addEventListener('mousemove', (e) => {
             const trail = document.createElement('div');
@@ -960,6 +1247,7 @@
 
         let filterKeyword = '';
         let filterEstrato = '';
+        let filteredData = [];
 
         // FUNÇÃO DE RESET
         function resetAllFilters() {
@@ -994,14 +1282,14 @@
             const tbody = document.getElementById('tabelaCorpo');
             tbody.innerHTML = '';
 
-            let filtered = conferencias.filter(conf => {
+            filteredData = conferencias.filter(conf => {
                 const matchKeyword = conf.sigla.toLowerCase().includes(filterKeyword) || 
                                    conf.nome.toLowerCase().includes(filterKeyword);
                 const matchEstrato = !filterEstrato || conf.estrato === filterEstrato;
                 return matchKeyword && matchEstrato;
             });
 
-            if (filtered.length === 0) {
+            if (filteredData.length === 0) {
                 tbody.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">🔍</div>
@@ -1013,7 +1301,7 @@
                 return;
             }
 
-            filtered.forEach((conf, index) => {
+            filteredData.forEach((conf, index) => {
                 const row = document.createElement('div');
                 row.className = 'table-row';
                 row.style.animationDelay = `${index * 0.05}s`;
@@ -1028,10 +1316,9 @@
                 tbody.appendChild(row);
             });
 
-            updateStats(filtered.length, filtered.filter(c => c.estrato === 'A1').length);
+            updateStats(filteredData.length, filteredData.filter(c => c.estrato === 'A1').length);
             updateResetButtonState();
         }
-
 
         // ATUALIZAR STATS
         function updateStats(visibles, a1s) {
@@ -1040,6 +1327,48 @@
             document.getElementById('abCount').textContent = aCount;
             document.getElementById('visibleCount').textContent = visibles;
         }
+
+        // ===== EXPORTAR CSV =====
+        document.getElementById('exportCSV').addEventListener('click', () => {
+            if (filteredData.length === 0) {
+                alert('Nenhuma conferência para exportar! Ajuste os filtros.');
+                return;
+            }
+
+            let csv = 'SIGLA,CONFERÊNCIA,ESTRATIFICAÇÃO\n';
+            filteredData.forEach(conf => {
+                csv += `"${conf.sigla}","${conf.nome}","${conf.estrato}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `conferencias_${new Date().getTime()}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // ===== EXPORTAR JSON =====
+        document.getElementById('exportJSON').addEventListener('click', () => {
+            if (filteredData.length === 0) {
+                alert('Nenhuma conferência para exportar! Ajuste os filtros.');
+                return;
+            }
+
+            const json = JSON.stringify(filteredData, null, 2);
+            const blob = new Blob([json], { type: 'application/json;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `conferencias_${new Date().getTime()}.json`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
 
         // EVENT LISTENERS
         document.getElementById('buscaInput').addEventListener('keyup', (e) => {
@@ -1070,7 +1399,6 @@
                 } else if (filter === 'A') {
                     filterKeyword = '';
                     filterEstrato = '';
-                    // Filtrar A apenas
                 } else if (filter === 'B') {
                     filterKeyword = '';
                     filterEstrato = '';
@@ -1101,18 +1429,13 @@
         // ===== FILTROS DA LEGEND =====
         document.querySelectorAll('.legend-item').forEach(item => {
             item.addEventListener('click', () => {
-                // Remover active de todos
                 document.querySelectorAll('.legend-item').forEach(i => i.classList.remove('active'));
-                
-                // Adicionar active ao clicado
                 item.classList.add('active');
                 
-                // Filtrar por estrato
                 const estrato = item.dataset.estrato;
                 filterEstrato = estrato;
                 filterKeyword = '';
                 
-                // Desativar filtros rápidos
                 document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
                 
                 updateResetButtonState();
